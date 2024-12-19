@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simbiosa</title>
+    <!-- Tambahkan CSS dan JS Leaflet -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 25px;
+        z-index: 0;
+
+    }
+
+
+    h1 {
+        text-align: center;
+    }
+
+    h2 {
+        color: orange;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    .menu-card {
+        transform: scale(0.9);
+        opacity: 0;
+        animation: fadeInScale 0.8s ease-in-out forwards;
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.2);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .menu-card:hover {
+        transform: scale(1.5);
+        transition: transform 0.5s ease;
+    }
+
+
+    .sidebar {
+        animation: slideIn 0.1s forwards;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    .navbar {
+        animation: fadeDown 0.8s ease-in-out;
+    }
+
+    @keyframes fadeDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
+
+    @media screen and (max-width: 640px) {
+        body {
+            margin: 0;
+            padding-top: 60px;
+            /* Ruang di bawah navbar */
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            /* Pastikan navbar berada di atas konten lainnya */
+        }
+
+        #sidebar {
+            z-index: 1100;
+            /* Sidebar tetap di atas navbar jika terbuka */
+        }
+
+    }
+</style>
+
+<body class="bg-[#252525]">
+
+    <!-- Navbar -->
+    <div class="flex flex-col h-full">
+        <!-- Navbar -->
+        <nav class="fixed top-0 w-full bg-[#3b141c] shadow-md">
+            <div class="mx-auto flex items-center justify-between px-4 py-4">
+                <h3 class="font-semibold text-2xl text-white">
+                    <em>☕ Simbiosa</em>
+                </h3>
+                <button class="focus:outline-none lg:hidden" id="menu-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="70" viewBox="0 0 50 50">
+                        <path
+                            d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z">
+                        </path>
+                    </svg>
+                </button>
+                <div class="hidden lg:flex lg:items-center">
+                    <a href="index.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Home</a>
+                    <a href="about.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">About</a>
+                    <a href="menu.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Menu</a>
+                    <a href="peta.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Maps</a>
+                    <a href="contact.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar for Mobile -->
+        <div id="sidebar" class="fixed inset-0 z-50 hidden">
+            <div style="background-color: #3b141c;" class="flex flex-col h-full w-64 p-4">
+                <button id="close-sidebar" class="text-white mb-4">Close</button>
+                <a href="index.html"
+                    class="flex items-center text-white hover:bg-orange-600 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-home mr-2"></i> Home
+                </a>
+                <a href="about.html"
+                    class="flex items-center text-white hover:bg-orange-600 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-info-circle mr-2"></i> About
+                </a>
+                <a href="menu.html"
+                    class="flex items-center text-white hover:bg-orange-600 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-utensils mr-2"></i> Menu
+                </a>
+                <a href="peta.html"
+                    class="flex items-center text-white hover:bg-orange-600 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-map mr-2"></i> Maps
+                </a>
+                <a href="contact.html"
+                    class="flex items-center text-white hover:bg-orange-600 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-phone mr-2"></i> Contact
+                </a>
+            </div>
+        </div>
+
+
+        <div class="mx-10 px-4 mt-16 mb-2">
+            <h3
+                class="text-3xl font-bold text-white text-center mt-5 mb-10 underline decoration-orange-400 decoration-4">
+                Menu
+                Lainnya</h3>
+
+            <div id="menu-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Coffee</h2>
+                    <p>-ekspreso</p>
+                    <p>-Americano</p>
+                    <p>-Ficcolo</p>
+                    <p>-Cappucino</p>
+                    <p>-latte</p>
+                    <p>-Mocha</p>
+                    <p>-Strawberry</p>
+                    <p>-Jasmine latte</p>
+                    <p>-Latte Freddo</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Non Coffee</h2>
+                    <p>-Choco Caramel</p>
+                    <p>-Choco Banana</p>
+                    <p>-Rum Regal</p>
+                    <p>-Red Velvet</p>
+                    <p>-Matcha Latte</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Culture</h2>
+                    <p>-Eskopsus</p>
+                    <p>-Kopi TUs</p>
+                    <p>-Vietnam Drip</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Smoothies Series</h2>
+                    <p>-Manggo</p>
+                    <p>-Strawberry</p>
+                    <p>-Banana</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Chizu Series</h2>
+                    <p>-Biscuit</p>
+                    <p>-Red Velvet</p>
+                    <p>-Biscuit</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Milk Tea</h2>
+                    <p>-Earl Grey Milk Tea</p>
+                    <p>-Traditional Thai Tea</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Refresher</h2>
+                    <p>-Manggo Yakult</p>
+                    <p>-Black Fruity</p>
+                    <p>-Apricia</p>
+                    <p>-Blue Butterfly</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Bottle</h2>
+                    <p>-Sebotol Simbiosa</p>
+                    <p>-Cold White</p>
+                    <p>-Cold White Caramel</p>
+                    <p>-Eskopi Mojoukun</p>
+                </div>
+                <div
+                    class="menu-card bg-[rgba(139,69,19,0.8)] hover:bg-[rgba(139,69,19,1)] rounded-lg shadow-lg p-6 text-center text-white">
+
+                    <h2 class="text-lg font-semibold mb-2">Snack & Cake</h2>
+                    <p>-Kentang Goreng</p>
+                    <p>-Cireng</p>
+                    <p>-Cheesecake</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <footer style="background:#D2B48C" class="fixed bottom-0 w-full text-white text-center py-4 shadow-md">
+            <a class="text-black font-bold">&copy; 2024 Website Coffee</a>
+        </footer>
+        <script src="./script.js"></script>
+</body>
+
+</html>

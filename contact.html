@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Website Coffee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Link ke Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Link ke Font Awesome -->
+    <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"-->
+</head>
+
+<body>
+    <div class="flex flex-col h-full">
+        <!-- Navbar -->
+        <nav style="background: rgba(59, 20, 28, 1);" class="fixed top-0 w-full shadow-md">
+            <div class="mx-auto flex items-center justify-between px-4 py-3">
+                <h3 class="font-semibold text-2xl text-white">
+                    <em>☕Simbiosa</em>
+                </h3>
+                <button class="focus:outline-none lg:hidden" id="menu-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="70" viewBox="0 0 50 50">
+                        <path
+                            d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z">
+                        </path>
+                    </svg>
+                </button>
+                <div class="hidden lg:flex lg:items-center">
+                    <a href="index.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Home</a>
+                    <a href="about.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">About</a>
+                    <a href="menu.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Menu</a>
+                    <a href="peta.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Maps</a>
+                    <a href="contact.html"
+                        class="hover:text-yellow-500 text-white  px-3 py-2 rounded-md text-lg font-semibold">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar for Mobile -->
+        <div id="sidebar" class="fixed inset-0 z-50 hidden">
+            <div style="background-color: #3b141c;" class="flex flex-col h-full w-64 p-4">
+                <button id="close-sidebar" class="text-white mb-4">Close</button>
+                <a href="index.html"
+                    class="flex items-center text-white hover:text-yellow-500 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-home mr-2"></i> Home
+                </a>
+                <a href="about.html"
+                    class="flex items-center text-white hover:text-yellow-500 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-info-circle mr-2"></i> About
+                </a>
+                <a href="menu.html"
+                    class="flex items-center text-white hover:text-yellow-500 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-utensils mr-2"></i> Menu
+                </a>
+                <a href="peta.html"
+                    class="flex items-center text-white hover:text-yellow-500 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-map mr-2"></i> Maps
+                </a>
+                <a href="contact.html"
+                    class="flex items-center text-white hover:text-yellow-500 px-3 py-2 rounded-md text-lg font-semibold">
+                    <i class="fas fa-phone mr-2"></i> Contact
+                </a>
+            </div>
+        </div>
+
+        <section class="contact-section" id="contact">
+            <h2 class="mt-10 xl:mt-0 section-title">Contact</h2>
+            <div class="section-content">
+                <ul class="contact-info-list">
+                    <li class="contact-info">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                        <p>Jl.Karaeng Bonto No.2, SElayar,Riau,Indonesia <br>92812</p>
+                    </li>
+                    <li class="contact-info">
+                        <i class="fa-brands fa-instagram"></i>
+                        <p>simbiosa_</p>
+                    </li>
+                    <li class="contact-info">
+                        <i class="fa-solid fa-envelope"></i>
+                        <p>simbiosa@gmail.com</p>
+                    </li>
+                    <li class="contact-info">
+                        <i class="fa-solid fa-phone"></i>
+                        <p>+62 823-5428-9541</p>
+                    </li>
+
+
+
+                    <li class="contact-info">
+                        <i class="fa-solid fa-clock"></i>
+                        <p>senin - minggu: 8:00 am - 22:00 pm</p>
+                    </li>
+
+                </ul>
+                <form action="#" class="contact-form">
+                    <input type="text" placeholder="your name" class="form-input" required>
+                    <input type="email" placeholder="your emaill" class="form-input" required>
+                    <textarea placeholder="your message" class="form-input" required></textarea>
+                    <button class="submit-button">submit</button>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- Footer -->
+        <footer style="background:#D2B48C" class="fixed bottom-0 w-full text-white text-center py-4 shadow-md">
+            <a class="text-black font-bold">&copy; 2024 Website Coffee</a>
+        </footer>
+        <script src="./script.js"></script>
+</body>
+
+</html>
